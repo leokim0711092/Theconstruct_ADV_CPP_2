@@ -1,5 +1,6 @@
 #include "ros/node_handle.h"
 #include "ros/subscriber.h"
+#include <memory>
 #include <ros/ros.h>
 #include <sensor_msgs/LaserScan.h>
 
@@ -11,7 +12,7 @@ class LaserSubscriberNode{
             laser_sub = nh.subscribe("kobuki/laser/scan",10, &LaserSubscriberNode::laser_subscribe_callback, this);
         
         }
-        void printClosestObstacleDistance(){
+        void printClosestObstacleDistance() const{
             float min_range = laser_scan -> ranges[0];
             int rc;
             for(int i=0;i<laser_scan->ranges.size();i++){
@@ -28,9 +29,9 @@ class LaserSubscriberNode{
         }
     private:
         ros::Subscriber laser_sub;
-        const sensor_msgs::LaserScan *laser_scan; // define the constant pointer laser_scan
+        std::shared_ptr<sensor_msgs::LaserScan> laser_scan; // define the constant pointer laser_scan
         void laser_subscribe_callback(const sensor_msgs::LaserScanConstPtr &msg){
-            laser_scan = msg.get();
+            laser_scan = std::make_shared<sensor_msgs::LaserScan>(*msg);
             if(!laser_scan->ranges.empty() && laser_scan != nullptr){
                 printClosestObstacleDistance();
             }
