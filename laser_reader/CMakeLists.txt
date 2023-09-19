@@ -132,8 +132,9 @@ add_library(${PROJECT_NAME}
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(lader_reader_node src/laser_reader.cpp)
-add_executable(lader_turtle_node src/laser_turtle.cpp)
+add_executable(laser_reader_node src/laser_reader.cpp)
+add_executable(laser_turtle_node src/laser_turtle.cpp)
+add_executable(laser_subscribe_node src/laser_subscriber.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -146,10 +147,14 @@ add_executable(lader_turtle_node src/laser_turtle.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(lader_reader_node
+target_link_libraries(laser_reader_node
   ${catkin_LIBRARIES}
 )
-target_link_libraries(lader_turtle_node
+target_link_libraries(laser_turtle_node
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(laser_subscribe_node
   ${catkin_LIBRARIES}
 )
 #############
