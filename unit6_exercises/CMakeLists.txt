@@ -9,6 +9,7 @@ project(unit6_exercises)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  sensor_msgs;
 )
 
 ## System dependencies are found with CMake's conventions
@@ -122,7 +123,12 @@ include
 add_library(magic_printer_library
   src/magic_printer.cpp
 )
-
+add_library(subscribe_class_library
+  src/main_magic_subscriber_class.cpp
+)
+add_library(subscribe_function_library
+  src/main_magic_subscriber_function.cpp
+)
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -132,6 +138,8 @@ add_library(magic_printer_library
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(main_magic_printer_node src/main_magic_printer.cpp)
+add_executable(main_subscribe_class_node src/main_magic_subscriber_class.cpp)
+add_executable(main_subscribe_function_node src/main_magic_subscriber_function.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -148,7 +156,14 @@ target_link_libraries(main_magic_printer_node
     magic_printer_library
   ${catkin_LIBRARIES}
 )
-
+target_link_libraries(main_subscribe_class_node
+    subscribe_class_library
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(main_subscribe_function_node
+    subscribe_function_library
+  ${catkin_LIBRARIES}
+)
 #############
 ## Install ##
 #############
