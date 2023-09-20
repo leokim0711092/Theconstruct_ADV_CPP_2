@@ -129,6 +129,9 @@ add_library(subscribe_class_library
 add_library(subscribe_function_library
   src/main_magic_subscriber_function.cpp
 )
+add_executable(basic_example_u6_specialization_node src/basic_example_u6_specialization.cpp)
+
+
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -140,6 +143,8 @@ add_library(subscribe_function_library
 add_executable(main_magic_printer_node src/main_magic_printer.cpp)
 add_executable(main_subscribe_class_node src/main_magic_subscriber_class.cpp)
 add_executable(main_subscribe_function_node src/main_magic_subscriber_function.cpp)
+add_executable(main_pcl_topic_subscriber_node src/main_pcl_topic_subscriber.cpp)
+add_executable(basic_example_u6_specialization_functions_node src/basic_example_u6_specialization_functions.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -163,6 +168,16 @@ target_link_libraries(main_subscribe_class_node
 target_link_libraries(main_subscribe_function_node
     subscribe_function_library
   ${catkin_LIBRARIES}
+)
+target_link_libraries(main_pcl_topic_subscriber_node
+    subscribe_function_library
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(basic_example_u6_specialization_node
+	${catkin_LIBRARIES}
+)
+target_link_libraries(basic_example_u6_specialization_functions_node
+	${catkin_LIBRARIES}
 )
 #############
 ## Install ##
