@@ -9,7 +9,10 @@ project(unit6_exercises)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  sensor_msgs;
+  sensor_msgs  
+  cv_bridge
+  pcl_conversions
+  std_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -134,7 +137,9 @@ add_executable(basic_example_u6_specialization_node src/basic_example_u6_special
 add_library(specialised_example_library
   src/main_specialised_example.cpp
 )
-
+add_library(magic_subscriber_image_edgedetector_library
+  src/magic_subscriber_image_edgedetector.cpp
+)
 
 
 ## Add cmake target dependencies of the library
@@ -151,6 +156,7 @@ add_executable(main_subscribe_function_node src/main_magic_subscriber_function.c
 add_executable(main_pcl_topic_subscriber_node src/main_pcl_topic_subscriber.cpp)
 add_executable(basic_example_u6_specialization_functions_node src/basic_example_u6_specialization_functions.cpp)
 add_executable(main_specialised_example_node src/main_specialised_example.cpp)
+add_executable(main_edge_detector_node src/main_edge_detector.cpp)
 
 
 ## Rename C++ executable without prefix
@@ -188,6 +194,10 @@ target_link_libraries(basic_example_u6_specialization_functions_node
 )
 target_link_libraries(main_specialised_example_node
 	specialised_example_library
+	${catkin_LIBRARIES}
+)
+target_link_libraries(main_edge_detector_node
+	magic_subscriber_image_edgedetector_library
 	${catkin_LIBRARIES}
 )
 #############
